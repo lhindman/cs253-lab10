@@ -1,24 +1,37 @@
 # Lab10 Guide
 ## Getting Started
 
-Please watch the Lab10 Walkthough Video.
+Please watch the [Lab10 Walkthough Video](https://www.youtube.com/playlist?list=PLvnIObHoMl8cLxjfgsSf5C8T4gcaArdBL).
 
-## Lab Warmup - Parsing strings
+### Code Style Requirements
+Please review the [CS253 Style Guide](https://docs.google.com/document/d/1zKIpNfkiPpDHEvbx8XSkZbUEUlpt8rnZjkhCSvM-_3A/edit?usp=sharing) and apply it in all lab warmups, lab activities and projects this semester. Coding Style will assessed as part of your lab and project grades.
+
+### Code Quality Requirements
+- Code must compile without warnings using the provided Makefile
+- Programs must handle unexpected user input and either reprompt (loops) or gracefully exit with a non-zero exit status.
+- Programs must handle error conditions gracefully, without crashing, ideally by checking function returns codes (if available) and returning a non-zero exit status.
+- Programs should be free of memory related errors, buffer overflows, stack smashing, leaks, etc... Whether the program crashes or not. This will be validated using valgrind.
+
+## Lab Warmup - Playlist Builder
 ### Problem Description
-<br />
-1. Prompt the user for a string that contains two strings separated by a comma. 
+Playlist Builder is an application that allows the user to specify a CSV file containing song data and a number of songs on the commandline.  The application will open the CSV, load the specified number of songs from the CSV file into a dynamically allocated array of the specified size, sort the songs in the array based upon their duration, then display the list of songs in the console.
 
-- Examples of strings that can be accepted:
-   - Jill, Allen
-   - Jill , Allen
-   - Jill,Allen
 <br />
+1. Carefully study the Song header file (Song.h)
+<br /><br />
+The Song struct as well as function declarations for the related functions described below have been provided in Song.h. Please do not modify the provided Song.h file. Details regarding each function as well as expected return values are included in the comments associated with each function declaration in Song.h. The following is a summary of this content:
 
-Ex:
-```
-Enter input string:
-Jill, Allen
-```
+- Data members
+  - char artist[40];
+  - char album[40];
+  - char title[40];
+  - int duration;
+- Related functions
+  - Song * CreateDataNode(const char artist[], const char album[], const char title[], int duration)  
+  - int CompareSong(Song * thisSong, Song * thatSong)  
+  - void PrintSong(Song * thisSong)
+  - void DestroySong(Song * thisSong)
+  
 <br />
 2. Report an error if the input string does not contain a comma. Continue to prompt until a valid string is entered. 
 
