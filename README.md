@@ -38,12 +38,7 @@ The Song struct as well as function declarations for the related functions descr
 <br /><br />
 Ex:
 ```
-Enter input string:
-Jill Allen
-Error: No comma in string.
 
-Enter input string:
-Jill, Allen
 ```
 <br />
 3. Iterate through each line in the specified input CSV file, extracting song fields from each line as shown in the CSVParser example, adding each song to the songlist. If the songlist fills up before reaching the of the CSV file, stop processing the CSV file and display a message specifying that the requested number of songs have been successfully loaded.  If the end of the CSV file is reached before loading the requested number of songs, display a message specifying that only n songs were loaded.
@@ -51,10 +46,7 @@ Jill, Allen
 
 Ex:
 ```
-Enter input string:
-Jill, Allen
-First word: Jill
-Second word: Allen
+
 ```
 <br />
 4. Use qsort() and the CompareSong() function to sort the songlist array.
@@ -72,23 +64,7 @@ Second word: Allen
 
 Ex:
 ```
-Enter input string:
-Jill, Allen
-First word: Jill
-Second word: Allen
 
-Enter input string:
-Golden , Monkey
-First word: Golden
-Second word: Monkey
-
-Enter input string:
-Washington,DC
-First word: Washington
-Second word: DC
-
-Enter input string:
-q
 ```
 
 
@@ -102,125 +78,75 @@ q
 7. Update the Coding Journal with an entry describing your experience using the steps outlined below.
 
 
-## Lab Activity
+## Lab Activity - Gradebook
 ### Problem Description
+Gradebook is an adaptation of a CS121 project used to demonstrate processing CSV files as well as working with ArrayLists and is revisited when we discuss Arrays.  This version of the Gradebook application allows the user to specify a CSV file containing student grade data command-line.  The application will open the CSV, load the grades from the CSV file into a dynamically allocated array. The array will initially be allocated to hold a max of 8 student grades, but will grow as needed by doubling its size each time. Once the grade data has been loaded from the CSV file, the grades array will be sorted based upon score, then displayed in the console. 
 <br />
-1. Prompt the user for a title for data. Output the title. 
+1. Carefully study the StudentGrader header file (StudentGrade.h)
+<br /><br />
+The StudentGrade struct as well as function declarations for the related functions described below have been provided in StudentGrade.h. Please do not modify the provided StudentGrade.h file. Details regarding each function as well as expected return values are included in the comments associated with each function declaration in StudentGrade.h. The following is a summary of this content:
+
+- Data members
+  - char lastname[20];
+  - char firstname[20];
+  - int id;
+  - int score;
+- Related functions
+  - StudentGrade * CreateStudentGrade(const char lastname[], const char firstname[], int id, int score)  
+  - int CompareStudentGrade(StudentGrade * thisSG, StudentGrade * thatSG)  
+  - void PrintStudentGrade(StudentGrade * thisSG)
+  - void DestroyStudentGrade(StudentGrade * thisSG)
+
+Ex:
+```
+
+```
+<br />
+2. Process the command-line arguments passed into main(), validate the correct number of values are passed in, dynamically create a gradebook array to hold 8 StudentGrade pointers and finally, open the specified file.  Handle any errors that occur by displaying a helpful error message and then exit with a non-zero exit status. 
 <br /><br />
 
 Ex:
 ```
-Enter a title for the data:
-Number of Novels Authored
-You entered: Number of Novels Authored
+
 ```
 <br />
-2. Prompt the user for the headers of two columns of a table. Output the column headers. 
+3. Iterate through each line in the specified input CSV file, extracting song fields from each line as shown in the CSVParser example, adding each StudentGrade to the gradebook. If the gradebook fills up before reaching the of the CSV file, grow the gradebook by doubling its size as shown in the SampleDataProcessing example. When the end of the CSV file is reached display a message specifying the number of StudentGrades that were successfully loaded.
 <br /><br />
 
 Ex:
 ```
-Enter the column 1 header:
-Author name
-You entered: Author name
 
-Enter the column 2 header:
-Number of novels
-You entered: Number of novels
 ```
 <br />
-3. Prompt the user for data points. Data points must be in this format: *string, int*. Store the information before the comma into a string variable and the information after the comma into an integer. The user will enter `-1` when they have finished entering data points. Output the data points. Store the string components of the data points in an array of strings. Store the integer components of the data points in an array of integers. 
+4. Use qsort() and the CompareSong() function to sort the gradebook array.
 <br /><br />
 
 Ex:
 ```
-Enter a data point (-1 to stop input):
-Jane Austen, 6
-Data string: Jane Austen
-Data integer: 6
+
 ```
 <br />
-4. Perform error checking for the data point entries. If any of the following errors occurs, output the appropriate error message and prompt again for a valid data point.
-
-- If entry has no comma
-   - Output: `Error: No comma in string.` 
-- If entry has more than one comma
-   - Output: `Error: Too many commas in input.`
-- If entry after the comma is not an integer
-   - Output: `Error: Comma not followed by an integer.` 
-
-<br />
-
-Ex:
-```
-Enter a data point (-1 to stop input):
-Ernest Hemingway 9
-Error: No comma in string.
-
-Enter a data point (-1 to stop input):
-Ernest, Hemingway, 9
-Error: Too many commas in input.
-
-Enter a data point (-1 to stop input):
-Ernest Hemingway, nine
-Error: Comma not followed by an integer.
-
-Enter a data point (-1 to stop input):
-Ernest Hemingway, 9
-Data string: Ernest Hemingway
-Data integer: 9
-```
-<br />
-5. Output the information in a formatted table. The title is right justified with a width of 33. Column 1 has a width of 20. Column 2 has a width of 23. 
+5. Iterate through the sorted gradebook and display each StudentGrade in the console using the PrintStudentGrade() function. Verify that the StudentGrades are displayed in ascending order
 <br /><br />
 
-Ex:
-```
-        Number of Novels Authored
-Author name         |       Number of novels
---------------------------------------------
-Jane Austen         |                      6
-Charles Dickens     |                     20
-Ernest Hemingway    |                      9
-Jack Kerouac        |                     22
-F. Scott Fitzgerald |                      8
-Mary Shelley        |                      7
-Charlotte Bronte    |                      5
-Mark Twain          |                     11
-Agatha Christie     |                     73
-Ian Flemming        |                     14
-J.K. Rowling        |                     14
-Stephen King        |                     54
-Oscar Wilde         |                      1
-```
 <br />
-6. Output the information as a formatted histogram. Each name is right justified with a width of 20. 
+6. Release allocated memory. Iterate through the songlist, freeing each Song by calling the DestroySong() function. Then free the songlist.  Also make certain to close any files that were opened.
 <br /><br />
+
 
 Ex:
 ```
-         Jane Austen ******
-     Charles Dickens ********************
-    Ernest Hemingway *********
-        Jack Kerouac **********************
- F. Scott Fitzgerald ********
-        Mary Shelley *******
-    Charlotte Bronte *****
-          Mark Twain ***********
-     Agatha Christie *************************************************************************
-        Ian Flemming **************
-        J.K. Rowling **************
-        Stephen King ******************************************************
-         Oscar Wilde *
+
 ```
 
 ### Implementation Guide
-1. Expand the folder named LabActivity and open the file named main.c
+1. Expand the folder named LabWarmup and open the files named StudentGrade.h, StudentGrade.c and main.c
 2. Enter the program code to create an application as described in the Problem Description.
-3. Test the program using to ensure it functions as expected.
-4. Commit the changes to your local repository with a message stating that LabActivity is completed.
-5. Push the changes from your local repository to the github classroom repository.
-6. Update the Coding Journal with an entry describing your experience using the steps outlined below.
+3. Test the program to ensure it functions as expected.
+4. Run the program with valgrind to catch any memory leaks or errors
+5. Commit the changes to your local repository with a message stating that LabWarmup is completed.
+6. Push the changes from your local repository to the github classroom repository.
+7. Update the Coding Journal with an entry describing your experience using the steps outlined below.
 
 ## Coding Journal
 Keep a journal of your activities as you work on this lab. Many of the best engineers that I have worked with professionally have kept some sort of engineering journal. I personally packed notebooks around with me for nearly 8 years before I began keeping my notes electronically.   
