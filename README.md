@@ -17,9 +17,9 @@ Please review the [CS253 Style Guide](https://docs.google.com/document/d/1zKIpNf
 Playlist Builder is an application that allows the user to specify a CSV file containing song data and a number of songs on the commandline.  The application will open the CSV, load the specified number of songs from the CSV file into a dynamically allocated array of the specified size, sort the songs in the array based upon their duration, then display the list of songs in the console.
 
 <br />
-1. Carefully study the Song header file (Song.h)
+1. Carefully study the provided Song header file (Song.h) and function definitions (Song.c)
 <br /><br />
-The Song struct as well as function declarations for the related functions described below have been provided in Song.h. Please do not modify the provided Song.h file. Details regarding each function as well as expected return values are included in the comments associated with each function declaration in Song.h. The following is a summary of this content:
+The Song struct as well as function declarations for the related functions described below have been provided in Song.h. Please do not modify the provided Song.h or Song.c files. Details regarding each function as well as expected return values are included in the comments associated with each function declaration in Song.h. The following is a summary of this content:
 
 - Data members
   - char artist[40];
@@ -28,7 +28,7 @@ The Song struct as well as function declarations for the related functions descr
   - int duration;
 - Related functions
   - Song * CreateSong(const char artist[], const char album[], const char title[], int duration)  
-  - int CompareSong(Song * thisSong, Song * thatSong)  
+  - int CompareSongs(const void * song1PtrPtr, const void * song2PtrPtr) 
   - void PrintSong(Song * thisSong)
   - void DestroySong(Song * thisSong)
   
@@ -36,35 +36,82 @@ The Song struct as well as function declarations for the related functions descr
 2. Process the command-line arguments passed into main(), validate the correct number of values are passed in, dynamically create a songlist array of the specified size and finally, open the specified file.  Handle any errors that occur by displaying a helpful error message and then exit with a non-zero exit status. 
 
 <br /><br />
-Ex:
+Ex: Incorrect number of command-line arguments
+```
+./myprog 
+Usage: ./myprog <catalog.csv> <size>
 ```
 
+<br /><br />
+Ex: Missing catalog file
 ```
+./myprog  rush-collection.csv 15
+fopen: No such file or directory
+```
+
+<br /><br />
+Ex: Size not an integer value
+```
+./myprog music-collection.csv twelve
+Error: Invalid size specied: twelve
+```
+
 <br />
 3. Iterate through each line in the specified input CSV file, extracting song fields from each line as shown in the CSVParser example, adding each song to the songlist. If the songlist fills up before reaching the of the CSV file, stop processing the CSV file and display a message specifying the number of songs that were successfully loaded. If the end of the CSV file is reached before loading the requested number of songs, display a message specifying the number of songs that were successfully loaded.
 <br /><br />
 
-Ex:
+Ex: Successfully parsed and loaded three songs from CSV file
+```
+./myprog music-collection.csv 12
+Successfully loaded 12 songs!
 ```
 
-```
 <br />
-4. Use qsort() and the CompareSong() function to sort the songlist array.
-<br /><br />
-
-
-<br />
-5. Iterate through the sorted songlist and display each song in the console using the PrintSong() function. Verify that the songs are displayed in ascending order
-<br /><br />
-
-
-<br />
-6. Release allocated memory. Iterate through the songlist, freeing each Song by calling the DestroySong() function. Then free the songlist.  Also make certain to close any files that were opened.
+4. Iterate through the songlist and display each song in the console using the PrintSong() function.
 <br /><br />
 
 Ex:
 ```
+./myprog music-collection.csv 2
+Successfully loaded 2 songs!
+------------------------------------------------
+Artist: Aerosmith
+Album: A Little South Of Sanity Disc 1
+Title: Falling In Love (Is Hard On The Knees)
+Duration: 209
+------------------------------------------------
+------------------------------------------------
+Artist: Aerosmith
+Album: A Little South Of Sanity Disc 1
+Title: Hole In My Soul
+Duration: 340
+------------------------------------------------
+```
 
+
+<br />
+5. Release allocated memory. Iterate through the songlist, freeing each Song by calling the DestroySong() function. Then free the songlist.  Also make certain to close any files that were opened.
+<br /><br />
+
+Ex: Run program in valgrind to verify no memory errors exist
+```
+valgrind --tool=memcheck --leak-check=yes --show-reachable=yes ./myprog  music-collection.csv 915 
+==89619== Memcheck, a memory error detector
+==89619== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==89619== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==89619== Command: ./myprog music-collection.csv 915
+
+<<<<<<<< PROGRAM OUTPUT REMOVED >>>>>>>>
+
+==89614== 
+==89614== HEAP SUMMARY:
+==89614==     in use at exit: 0 bytes in 0 blocks
+==89614==   total heap usage: 919 allocs, 919 frees, 126,372 bytes allocated
+==89614== 
+==89614== All heap blocks were freed -- no leaks are possible
+==89614== 
+==89614== For lists of detected and suppressed errors, rerun with: -s
+==89614== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
 ```
 
 
@@ -82,9 +129,9 @@ Ex:
 ### Problem Description
 Gradebook is an adaptation of a CS121 project used to demonstrate processing CSV files as well as working with ArrayLists and is revisited when we discuss Arrays.  This version of the Gradebook application allows the user to specify a CSV file containing student grade data command-line.  The application will open the CSV, load the grades from the CSV file into a dynamically allocated array. The array will initially be allocated to hold a max of 8 student grades, but will grow as needed by doubling its size each time. Once the grade data has been loaded from the CSV file, the grades array will be sorted based upon score, then displayed in the console. 
 <br />
-1. Carefully study the StudentGrader header file (StudentGrade.h)
+1. Carefully study the provided Student header file (Student.h) and function definitions (Student.c)
 <br /><br />
-The StudentGrade struct as well as function declarations for the related functions described below have been provided in StudentGrade.h. Please do not modify the provided StudentGrade.h file. Details regarding each function as well as expected return values are included in the comments associated with each function declaration in StudentGrade.h. The following is a summary of this content:
+The Student struct as well as function declarations for the related functions described below have been provided in Student.h. Please do not modify the provided Student.h or Student.c files. Details regarding each function as well as expected return values are included in the comments associated with each function declaration in Student.h. The following is a summary of this content:
 
 - Data members
   - char lastname[20];
@@ -92,42 +139,65 @@ The StudentGrade struct as well as function declarations for the related functio
   - int id;
   - int score;
 - Related functions
-  - StudentGrade * CreateStudentGrade(const char lastname[], const char firstname[], int id, int score)  
-  - int CompareStudentGrade(StudentGrade * thisSG, StudentGrade * thatSG)  
-  - void PrintStudentGrade(StudentGrade * thisSG)
-  - void DestroyStudentGrade(StudentGrade * thisSG)
+  - Student * CreateStudent(const char lastname[], const char firstname[], int id, int score)  
+  - int CompareStudents(const void * Student1PtrPtr, const void * Student2PtrPtr) 
+  - void PrintStudent(Student * thisSG)
+  - void DestroyStudent(Student * thisSG)
 
-Ex:
-```
 
-```
 <br />
-2. Process the command-line arguments passed into main(), validate the correct number of values are passed in, dynamically create a gradebook array to hold 8 StudentGrade pointers and finally, open the specified file.  Handle any errors that occur by displaying a helpful error message and then exit with a non-zero exit status. 
+2. Process the command-line arguments passed into main(), validate the correct number of values are passed in, dynamically create a gradebook array to hold 8 Student pointers and finally, open the specified file.  Handle any errors that occur by displaying a helpful error message and then exit with a non-zero exit status. 
 <br /><br />
 
-Ex:
+Ex: Incorrect number of command-line arguments
+```
+./myprog 
+Usage: ./myprog <gradebook.csv>
 ```
 
+Ex: Missing CSV data file
 ```
+./myprog grades.txt
+fopen: No such file or directory
+```
+
 <br />
-3. Iterate through each line in the specified input CSV file, extracting song fields from each line as shown in the CSVParser example, adding each StudentGrade to the gradebook. If the gradebook fills up before reaching the of the CSV file, grow the gradebook by doubling its size as shown in the SampleDataProcessing example. When the end of the CSV file is reached display a message specifying the number of StudentGrades that were successfully loaded.
+3. Iterate through each line in the specified input CSV file, extracting song fields from each line as shown in the CSVParser example, adding each Student to the gradebook. If the gradebook fills up before reaching the of the CSV file, grow the gradebook by doubling its size as shown in the SampleDataProcessing example. When the end of the CSV file is reached display a message specifying the number of Students that were successfully loaded.
 <br /><br />
 
-Ex:
+Ex: Run gradebook application on XL CSV dataset
 ```
-
+./myprog gradebook-xl.csv 
+Growing Array: 8 -> 16
+Growing Array: 16 -> 32
+Growing Array: 32 -> 64
+Growing Array: 64 -> 128
+Growing Array: 128 -> 256
+Growing Array: 256 -> 512
+Growing Array: 512 -> 1024
+Successfully loaded 1000 Students!
 ```
 <br />
-4. Use qsort() and the CompareSong() function to sort the gradebook array.
+4. Use qsort() and the CompareSongs() function to sort the gradebook array.
 <br /><br />
 
-Ex:
-```
 
-```
 <br />
-5. Iterate through the sorted gradebook and display each StudentGrade in the console using the PrintStudentGrade() function. Verify that the StudentGrades are displayed in ascending order
+5. Iterate through the sorted gradebook and display each Student in the console using the PrintStudent() function. Verify that the Students are displayed in ascending order
 <br /><br />
+
+Ex: Show sorted gradebook using small CSV dataset
+```
+./myprog gradebook.csv
+Successfully loaded 7 Students!
+Stella Zinman (6326) has a F (21)
+Barney Stinson (1) has a D- (63)
+Gary Blauman (7123) has a C (76)
+Lily Aldrin (1413) has a B- (82)
+Marshall Eriksen (1423) has a B+ (87)
+Robin Scherbatsky (3002) has a A- (91)
+Ted Mosby (6003) has a A+ (103)
+```
 
 <br />
 6. Release allocated memory. Iterate through the songlist, freeing each Song by calling the DestroySong() function. Then free the songlist.  Also make certain to close any files that were opened.
@@ -136,15 +206,32 @@ Ex:
 
 Ex:
 ```
+valgrind --tool=memcheck --leak-check=yes --show-reachable=yes ./myprog  gradebook-xl.csv > /dev/null
+==90009== Memcheck, a memory error detector
+==90009== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==90009== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==90009== Command: ./myprog gradebook-xl.csv
+==90009== 
 
+<<<<<<<< PROGRAM OUTPUT REMOVED >>>>>>>>
+
+==90009== 
+==90009== HEAP SUMMARY:
+==90009==     in use at exit: 0 bytes in 0 blocks
+==90009==   total heap usage: 1,012 allocs, 1,012 frees, 120,984 bytes allocated
+==90009== 
+==90009== All heap blocks were freed -- no leaks are possible
+==90009== 
+==90009== For lists of detected and suppressed errors, rerun with: -s
+==90009== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
 ```
 
 ### Implementation Guide
-1. Expand the folder named LabWarmup and open the files named StudentGrade.h, StudentGrade.c and main.c
+1. Expand the folder named LabActivity and open the files named Student.h, Student.c and main.c
 2. Enter the program code to create an application as described in the Problem Description.
 3. Test the program to ensure it functions as expected.
 4. Run the program with valgrind to catch any memory leaks or errors
-5. Commit the changes to your local repository with a message stating that LabWarmup is completed.
+5. Commit the changes to your local repository with a message stating that LabActivity is completed.
 6. Push the changes from your local repository to the github classroom repository.
 7. Update the Coding Journal with an entry describing your experience using the steps outlined below.
 

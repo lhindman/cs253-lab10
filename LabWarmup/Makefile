@@ -14,12 +14,11 @@ CFLAGS = -Wall -Wextra -Wpointer-arith -Wstrict-prototypes -std=c99 -g
 build: myprog
 
 
-myprog: main.o 
+myprog: main.o Song.o
 	$(CC) $(CFLAGS) $^ -o $@ 
 
-
-test:
-	./myprog
+memtest: myprog
+	valgrind --tool=memcheck --leak-check=yes --show-reachable=yes ./myprog  jimmy_buffett-collection.csv 10
 
 clean:
 	rm -f *.o *.d a.out myprog mytests main
