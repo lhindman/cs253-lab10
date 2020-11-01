@@ -66,6 +66,10 @@ Second word: Allen
 <br /><br />
 
 
+<br />
+6. Release allocated memory. Iterate through the songlist, freeing each Song by calling the DestroySong() function. Then free the songlist.  Also make certain to close any files that were opened.
+<br /><br />
+
 Ex:
 ```
 Enter input string:
@@ -91,10 +95,11 @@ q
 ### Implementation Guide
 1. Expand the folder named LabWarmup and open the files named Song.h, Song.c and main.c
 2. Enter the program code to create an application as described in the Problem Description.
-3. Test the program using to ensure it functions as expected.
-4. Commit the changes to your local repository with a message stating that LabWarmup is completed.
-5. Push the changes from your local repository to the github classroom repository.
-6. Update the Coding Journal with an entry describing your experience using the steps outlined below.
+3. Test the program to ensure it functions as expected.
+4. Run the program with valgrind to catch any memory leaks or errors
+5. Commit the changes to your local repository with a message stating that LabWarmup is completed.
+6. Push the changes from your local repository to the github classroom repository.
+7. Update the Coding Journal with an entry describing your experience using the steps outlined below.
 
 
 ## Lab Activity
