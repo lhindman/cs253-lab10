@@ -178,7 +178,7 @@ Growing Array: 512 -> 1024
 Successfully loaded 1000 Students!
 ```
 <br />
-4. Use qsort() and the CompareSongs() function to sort the gradebook array.  
+4. Use qsort() and the CompareStudents() function to sort the gradebook array.  
 
 For more details on how qsort() works, please review the [Week 9 Deeper Look](https://www.youtube.com/playlist?list=PLvnIObHoMl8dxXVqbIki-altY22BE2vTU) discussion of function pointers. The PointersAndFunctions example from [cs253-week9-examples](https://github.com/lhindman/cs253-week9-examples) may also be helpful.
 <br /><br />
@@ -202,7 +202,7 @@ Ted Mosby (6003) has a A+ (103)
 ```
 
 <br />
-6. Release allocated memory. Iterate through the songlist, freeing each Song by calling the DestroySong() function. Then free the songlist.  Also make certain to close any files that were opened.
+6. Release allocated memory. Iterate through the gradebook, freeing each Student by calling the DestroyStudent() function. Then free the gradebook.  Also make certain to close any files that were opened.
 <br /><br />
 
 
