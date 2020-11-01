@@ -178,7 +178,7 @@ Growing Array: 512 -> 1024
 Successfully loaded 1000 Students!
 ```
 <br />
-4. Use qsort() and the CompareSongs() function to sort the gradebook array.
+4. Use qsort() and the CompareSongs() function to sort the gradebook array. For more details on how this works, please review the [Week 9 Deeper Look](https://www.youtube.com/playlist?list=PLvnIObHoMl8dxXVqbIki-altY22BE2vTU) discussion of function pointers. PointersAndFunctions from the [cs253-week9-examples](https://github.com/lhindman/cs253-week9-examples) may also be helpful.
 <br /><br />
 
 
