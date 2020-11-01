@@ -27,15 +27,14 @@ The Song struct as well as function declarations for the related functions descr
   - char title[40];
   - int duration;
 - Related functions
-  - Song * CreateDataNode(const char artist[], const char album[], const char title[], int duration)  
+  - Song * CreateSong(const char artist[], const char album[], const char title[], int duration)  
   - int CompareSong(Song * thisSong, Song * thatSong)  
   - void PrintSong(Song * thisSong)
   - void DestroySong(Song * thisSong)
   
 <br />
-2. Report an error if the input string does not contain a comma. Continue to prompt until a valid string is entered. 
+2. Process the command-line arguments passed into main(), validate the correct number of values are passed in, dynamically create a songlist array of the specified size and finally, open the specified file.  Handle any errors that occur by displaying a helpful error message and then exit with a non-zero exit status. 
 
-*Note: If the input contains a comma, then assume that the input also contains two strings.* 
 <br /><br />
 Ex:
 ```
@@ -47,7 +46,7 @@ Enter input string:
 Jill, Allen
 ```
 <br />
-3. Extract the two words from the input string and remove any spaces. Store the strings in two separate variables and output the strings. 
+3. Iterate through each line in the specified input CSV file, extracting song fields from each line as shown in the CSVParser example, adding each song to the songlist. If the songlist fills up before reaching the of the CSV file, stop processing the CSV file and display a message specifying that the requested number of songs have been successfully loaded.  If the end of the CSV file is reached before loading the requested number of songs, display a message specifying that only n songs were loaded.
 <br /><br />
 
 Ex:
@@ -58,8 +57,14 @@ First word: Jill
 Second word: Allen
 ```
 <br />
-4. Using a loop, extend the program to handle multiple lines of input. Continue until the user enters q to quit.  
+4. Use qsort() and the CompareSong() function to sort the songlist array.
 <br /><br />
+
+
+<br />
+5. Iterate through the sorted songlist and display each song in the console using the PrintSong() function. Verify that the songs are displayed in ascending order
+<br /><br />
+
 
 Ex:
 ```
@@ -84,7 +89,7 @@ q
 
 
 ### Implementation Guide
-1. Expand the folder named LabWarmup and open the file named main.c
+1. Expand the folder named LabWarmup and open the files named Song.h, Song.c and main.c
 2. Enter the program code to create an application as described in the Problem Description.
 3. Test the program using to ensure it functions as expected.
 4. Commit the changes to your local repository with a message stating that LabWarmup is completed.
