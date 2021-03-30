@@ -17,13 +17,12 @@ struct student_grade_struct {
 typedef struct student_grade_struct Student;
 
 /* CreateStudent: Allocate a Student object in the heap using malloc
- *    the object will be initialized with the specified artist, 
- *    album, title and duration.  Return NULL if any parameters are null
- *    or if duration is less than 0.
- * artist - NULL terminated string containing artist
- * album - NULL terminated string containing album
- * title - NULL terminated string containing Student title
- * duration - interger value with duration of Student in seconds
+ *    the object will be initialized with the specified lastname, firstname, 
+ *    id and score.  Return NULL if any parameters are null or less than zero.
+ * lastname - NULL terminated string containing artist
+ * firstname - NULL terminated string containing album
+ * id - integer value representing student id number
+ * score - integer value representing student score
  * 
  * returns - Pointer to Student object allocated on the heap
  */
@@ -32,9 +31,9 @@ Student * CreateStudent(const char lastname[], const char firstname[], int id, i
 /* CompareStudents: Compare two Student objects. The parameters must be of 
  *    type void* for compatibility with qsort().  The parameters must
  *    be cast to Student before dereferencing internal fields.  Returns
- *    negative number if the duration of Student1 is less than Student2, a 
- *    positive number of the duration of Student1 is greather than Student2, 
- *    and zero if the Students have equal duration. Undefined behavior if
+ *    negative number if the score of Student1 is less than Student2, a 
+ *    positive number of the score of Student1 is greather than Student2, 
+ *    and zero if the Students have equal score. Undefined behavior if
  *    either Student1 or Student2 is NULL
  * Student1PtrPtr - Pointer to a Pointer to a Student
  * Student2PtrPtr - Pointer to a Pointer to a Student
