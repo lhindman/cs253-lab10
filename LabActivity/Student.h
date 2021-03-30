@@ -19,8 +19,8 @@ typedef struct student_grade_struct Student;
 /* CreateStudent: Allocate a Student object in the heap using malloc
  *    the object will be initialized with the specified lastname, firstname, 
  *    id and score.  Return NULL if any parameters are null or less than zero.
- * lastname - NULL terminated string containing artist
- * firstname - NULL terminated string containing album
+ * lastname - NULL terminated string containing lastname
+ * firstname - NULL terminated string containing firstname
  * id - integer value representing student id number
  * score - integer value representing student score
  * 
