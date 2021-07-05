@@ -1,7 +1,7 @@
-# Lab11 Guide
+# Lab10 Guide
 ## Getting Started
 
-Please watch the [Lab11 Walkthough Video](https://www.youtube.com/playlist?list=PLvnIObHoMl8cLxjfgsSf5C8T4gcaArdBL).
+Please watch the [Lab10 Walkthough Video](https://www.youtube.com/playlist?list=PLvnIObHoMl8cLxjfgsSf5C8T4gcaArdBL).
 
 ### Code Style Requirements
 Please review the [CS253 Style Guide](https://docs.google.com/document/d/1zKIpNfkiPpDHEvbx8XSkZbUEUlpt8rnZjkhCSvM-_3A/edit?usp=sharing) and apply it in all lab warmups, lab activities and projects this semester. Coding Style will assessed as part of your lab and project grades.
